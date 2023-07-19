@@ -6,16 +6,16 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Transform = UnityEngine.Transform;
 
-public static class Util 
+public static class Util
 {
-    public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
+    public static T GetOrAddComponet<T>(GameObject go) where T : UnityEngine.Component
     {
-        T component = go.GetComponent<T>();                     //GetComponent 시도
-        if (component == null)                                  
-            component = go.AddComponent<T>();                   //AddComponent를 해서 오브젝트에 붙여준다.
+        T component = go.GetComponent<T>();                 //GetComponet 시도 
+        if (component == null)
+            component = go.AddComponent<T>();               //AddComponet를 해서 오브젝트에 붙여준다. 
 
         return component;
-    }    
+    }
 
     public static GameObject FindChild(GameObject go, string name = null, bool recursive = false)
     {
@@ -30,12 +30,12 @@ public static class Util
         if (go == null)
             return null;
 
-        if (recursive == false)
+        if(recursive == false)
         {
-            for (int i = 0; i < go.transform.childCount; i++)
+            for(int i = 0; i < go.transform.childCount; i++)
             {
                 Transform transform = go.transform.GetChild(i);
-                if (string.IsNullOrEmpty(name) || transform.name == name)
+                if(string.IsNullOrEmpty(name) || transform.name == name)
                 {
                     T component = transform.GetComponent<T>();
                     if (component != null)
@@ -43,19 +43,17 @@ public static class Util
                 }
             }
         }
-
         else
         {
-            foreach (T component in go.GetComponentsInChildren<T>())
+            foreach(T component in go.GetComponentsInChildren<T>())
             {
                 if (string.IsNullOrEmpty(name) || component.name == name)
                     return component;
             }
         }
-
         return null;
-    }  
-    
+    }
+
     public static Color HexToColor(string color)
     {
         Color parsedColor;
@@ -68,5 +66,4 @@ public static class Util
     {
         return (T)Enum.Parse(typeof(T), value, true);
     }
-
 }
